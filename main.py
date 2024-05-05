@@ -1,7 +1,10 @@
-from transformers import pipeline
+from transformers import pipeline,logging
 from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+
+logging.set_verbosity_error()
 
 app = FastAPI()
 
@@ -21,7 +24,7 @@ class TextIn(BaseModel):
 class TextOut(BaseModel):
     answer: str
 
-@app.get("/")
+@app.get("/info")
 async def boot():
     return {'model_status':'ready', 'API_version': '0.0.1'}
 
@@ -29,3 +32,5 @@ async def boot():
 async def request(payload: TextIn):
     answer = pipe(payload.prompt)[0]['generated_text']
     return {'answer': answer}
+
+app.mount('/', StaticFiles(directory='static',html=True), name='static')

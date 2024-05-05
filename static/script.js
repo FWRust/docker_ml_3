@@ -11,7 +11,7 @@ function submit()
     message_box.innerHTML = message_box.value + user + message + '\n' + '\n';
 
     let prompt = document.getElementById('textBox').value
-    fetch("http://127.0.0.1:8088/request",{
+    fetch("http://127.0.0.1:8000/request",{
     method: "POST",
     body: JSON.stringify({prompt: prompt}),
     headers: {
