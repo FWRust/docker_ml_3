@@ -1,7 +1,7 @@
 var btn = document.getElementById('btn');
 let text_box = document.getElementById('textBox');
 let message_box = document.getElementById('message-box');
-let server_url = window.location.href + '/request'
+let server_url = window.location.href + 'request'
 let user = 'user: ';
 let server = 'GPT-2: ';
 
