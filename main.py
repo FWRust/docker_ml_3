@@ -17,7 +17,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-pipe = pipeline("text-generation", model="openai-community/gpt2")
+pipe = pipeline("text-generation", model='./rugpt3small_based_on_gpt2/')
 
 class TextIn(BaseModel):
     prompt: str
@@ -31,10 +31,11 @@ async def boot():
 
 @app.post('/request', response_model=TextOut)
 async def request(payload: TextIn):
-    answer = pipe(payload.prompt)[0]['generated_text']
+    answer = pipe(payload.prompt, max_new_tokens=100,do_sample=True)[0]['generated_text']
     return {'answer': answer}
 
 app.mount('/', StaticFiles(directory='static',html=True), name='static')
 
 if __name__ == '__main__':
+    print('Инициализация завершена, введите localhost:(порт) в поисковую строку браузера чтобы открыть интерфейс')
     uvicorn.run('main:app', host='0.0.0.0',port=8000,reload=False)
