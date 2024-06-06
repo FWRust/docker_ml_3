@@ -9,6 +9,7 @@ RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.d
 RUN apt-get install git-lfs
 RUN git lfs install
 RUN git clone https://huggingface.co/DFofanov78/rugpt3small_based_on_gpt2
+RUN git lfs uninstall
 
 EXPOSE 8000
 CMD ["python3", "/app/main.py"]

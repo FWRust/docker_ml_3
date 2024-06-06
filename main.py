@@ -31,7 +31,7 @@ async def boot():
 
 @app.post('/request', response_model=TextOut)
 async def request(payload: TextIn):
-    answer = pipe(payload.prompt)[0]['generated_text']
+    answer = pipe(payload.prompt, max_new_tokens=100,do_sample=True)[0]['generated_text']
     return {'answer': answer}
 
 app.mount('/', StaticFiles(directory='static',html=True), name='static')
