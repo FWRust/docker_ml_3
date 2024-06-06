@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+import uvicorn
 
 logging.set_verbosity_error()
 
@@ -34,3 +35,6 @@ async def request(payload: TextIn):
     return {'answer': answer}
 
 app.mount('/', StaticFiles(directory='static',html=True), name='static')
+
+if __name__ == '__main__':
+    uvicorn.run('main:app', host='0.0.0.0',port=8000,reload=False)
